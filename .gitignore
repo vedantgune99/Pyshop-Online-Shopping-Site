@@ -1,4 +1,1 @@
-db.sqlite3,
-Pipfile,
-Pipfile.lock,
-Products/migrations,
+db.sqlite3
