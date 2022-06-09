@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Product
+from .models import Product, Cart
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -12,7 +12,7 @@ activeUser = None
 
 
 def home(request):
-    return render(request, 'base.html', {'isRegistered': isRegistered, 'isLoggedIn': isLoggedIn, 'isLoggedOut': isLoggedOut, 'activeUser': activeUser})
+    return render(request, 'base.html')
 
 
 def products(request):
@@ -67,7 +67,7 @@ def signin_user(request):
         password = request.POST['password']
         confpass = request.POST['conf_pass']
 
-    # if (password == confpass) and (username != User.objects.get(username)):
+    if (password == confpass):
         myuser = User.objects.create_user(username, email, password)
         myuser.name = name
         myuser.phone = phone
@@ -81,3 +81,20 @@ def signin_user(request):
 
 def dashboard(request):
     pass
+
+
+def cart(request):
+    CartProducts = Cart.objects.all()
+    return render(request, 'cart.html', {'CartProducts': CartProducts})
+
+
+def addcart(request):
+    if request.method == "POST":
+        product_id = request.POST['id']
+        # cart_item = Product.objects.all()
+        cart_item = Product.objects.get(id=product_id)
+        Cart(title=cart_item.title, image=cart_item.image,
+             price=cart_item.price, user=request.user).save()
+        return redirect('products')
+        # cart = Cart(product)
+        # cart(request.POST)

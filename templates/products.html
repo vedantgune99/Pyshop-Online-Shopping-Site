@@ -7,16 +7,23 @@
         {% for product in products %}
         <div class="col">
             <div class="card mt-5 mx-4" style="width: 18rem;">
-                <img src="{{ product.image }}" style="height:19rem; width:18rem;" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.title }}</h5>
-                    <p class="card-text">{{ product.desc }}</p>
-                    <strong>price :</strong>
-                    <p class="card-text">{{ product.price }}
-                    <p>
-                        <a href="#" class="btn btn-primary">Add To Cart</a>
+                <a href="details/{{ product.id }}">
+                    <img src="{{ product.image }}" style="height:19rem; width:18rem;" class="card-img-top" alt="...">
+                </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.desc }}</p>
+                        <br/>
+                        <strong>price :</strong>
+                        <p class="card-text">{{ product.price }}
+                        <p>
+                            <form method="post" action="addcart/">
+                                {% csrf_token %}
+                                <input value={{ product.id }} class="invisible" type="number" name="id"/>
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
+                    </div>
                 </div>
-            </div>
         </div>
         {% endfor %}
     </div>

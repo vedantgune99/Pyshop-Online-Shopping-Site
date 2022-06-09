@@ -44,8 +44,8 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search">
         <button class="btn btn-outline-primary my-2 mr-2 my-sm-0" type="submit">Search</button>
 
-        {% if isLoggedIn %}
 
+        {% if user.is_authenticated %}
         <div class="dropdown btn-fill-dark">
           <button class="btn btn-sm btn-fill-dark text-light dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,70 +56,46 @@
                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
             </svg>
           </button>
+        
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <p class="dropdown-item"><strong>{{ activeUser }}</strong></p>
+            <p class="dropdown-item"><strong>{{ request.user }}</strong></p>
             <hr>
-            <a class="dropdown-item" href="#">My Cart</a>
-            <a class="dropdown-item" href="/logout">Logout</a>
+            <a class="dropdown-item" href="/cart/">My Cart</a>
+            <a class="dropdown-item" href="/cart/">Forgot Password</a>
+            <a class="dropdown-item" href="/logout/">Logout</a>
           </div>
         </div>
         {% endif %}
     </div>
     </div>
 
-
-
-
-    {% if not isRegistered and not isLoggedIn %}
+    {% if not user.is_authenticated %}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#SignInModal">
       Sign In
     </button>
-    {% endif %}
-
-    {% if not isLoggedIn %}
+    
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LogInModal">
       Log In
     </button>
     {% endif %}
-    </form>
-    </div>
-  </nav>
+  </form>
+</div>
+</nav>
 
   <!-- End NavBar -->
 
-  {% if isLoggedOut %}
+
+  {% comment %} Alert User Login Successfull {% endcomment %}
+  {% if user.isAuthenticated %}
   <div class="container mt-4">
     <div class="alert alert-success alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      User logged out successfully!
+      {{ request.user }} logged in successfully!
     </div>
   </div>
   {% endif %}
 
-
-  {% if isLoggedIn %}
-  <div class="container mt-4">
-    <div class="alert alert-success alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      User logged in successfully!
-    </div>
-  </div>
-
-  {% else %}
-  {% if isRegistered %}
-  <div class="container mt-4">
-
-    <div class="alert alert-success alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      User registered successfully!
-      <a href="" class="card-text mr-2" data-toggle="modal" data-dismiss="modal" data-target="#LogInModal"><strong>Log
-          In
-          Here</strong></a>
-    </div>
-  </div>
-  {% endif %}
-  {% endif %}
 
   <!-- Sign In Modal -->
   <div class="modal fade" id="SignInModal" tabindex="-1" aria-labelledby="SignInModal" aria-hidden="true">
@@ -130,7 +106,7 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
         </div>
         <div class="modal-body">
-          <form method="post" action="signin/" name="SignInForm" class="row g-3">
+          <form method="post" action="/signin/" name="SignInForm" class="row g-3">
             {% csrf_token %}
             <div class="col-12 my-2">
               <label for="fname" class="form-label">Name :</label>
@@ -181,7 +157,7 @@
           <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close">x</button>
         </div>
         <div class="modal-body">
-          <form class="row g-3" action="login/" name="LoginForm" method="post">
+          <form class="row g-3" action="/login/" name="LoginForm" method="post">
             {% csrf_token %}
             <div class="col-12">
               <label for="lname" class="form-label">Username</label>

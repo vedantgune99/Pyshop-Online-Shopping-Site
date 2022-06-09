@@ -23,5 +23,10 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    item_id = models.IntegerField()
-    user = modes.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    image = models.CharField(max_length=2048)
+    price = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
