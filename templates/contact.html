@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+
+<div class="container mt-5">
+    <h5 align="center" class="card-title">CONTACT US</h5>
+    <p align="center" class="card-text">We will reach you soon!</p>
+    <div class="border rounded-lg my-4">
+    <form class="m-3">
+        <div class="row">
+        <div class="col mb-3">
+            <label for="name" class="form-label">Your Name : </label>
+            <input type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="col mb-3">
+            <label for="email" class="form-label">Email : </label>
+            <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+        </div>
+        </div>
+        <div class="mb-3">
+            <label for="query" class="form-label">Your Query : </label>
+            <textarea class="form-control" id="query" rows="4" col="12" placeholder="Leave your message..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Query</button>
+    </form>
+</div>
+
+{% endblock %}

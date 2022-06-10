@@ -7,7 +7,8 @@ from django.contrib import messages
 
 
 def home(request):
-    return render(request, 'base.html')
+    products = Product.objects.all()
+    return render(request, 'base.html', {'products': products})
 
 
 def products(request):
@@ -21,11 +22,11 @@ def details(request, product_id):
 
 
 def contact(request):
-    return HttpResponse("Hello, contacts")
+    return render(request, 'contact.html')
 
 
 def about(request):
-    return HttpResponse("Hello, About")
+    return render(request, 'about.html')
 
 
 def logout_user(request):
@@ -80,4 +81,6 @@ def addcart(request):
         cart_item = Product.objects.get(id=product_id)
         Cart(title=cart_item.title, image=cart_item.image,
              price=cart_item.price, user=request.user).save()
+
+        messages.success(request, 'Cart item added successfully!')
         return redirect('products')
