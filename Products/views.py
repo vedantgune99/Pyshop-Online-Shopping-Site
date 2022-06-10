@@ -5,11 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 # Create your views here.
 
-isRegistered = False
-isLoggedIn = False
-isLoggedOut = False
-activeUser = None
-
 
 def home(request):
     return render(request, 'base.html')
@@ -34,31 +29,23 @@ def about(request):
 
 
 def logout_user(request):
-    global isLoggedIn, isRegistered, isLoggedOut
     logout(request)
-    isLoggedIn = False
-    isRegistered = False
-    isLoggedOut = True
     return redirect('homepage')
 
 
 def login_user(request):
-    global isLoggedIn, activeUser
     if request.method == "POST":
         username = request.POST['loginusername']
         password = request.POST['loginpass']
         user = authenticate(request, username=username, password=password)
-        activeUser = username
         if user is not None:
             login(request, user)
-            isLoggedIn = True
         else:
             messages.error("Invalid User!")
         return redirect('homepage')
 
 
 def signin_user(request):
-    global isRegistered
     if request.method == "POST":
         name = request.POST['name']
         username = request.POST['username']
@@ -72,7 +59,6 @@ def signin_user(request):
         myuser.name = name
         myuser.phone = phone
         myuser.save()
-        isRegistered = True
         return redirect('homepage')
 
     else:
@@ -91,10 +77,7 @@ def cart(request):
 def addcart(request):
     if request.method == "POST":
         product_id = request.POST['id']
-        # cart_item = Product.objects.all()
         cart_item = Product.objects.get(id=product_id)
         Cart(title=cart_item.title, image=cart_item.image,
              price=cart_item.price, user=request.user).save()
         return redirect('products')
-        # cart = Cart(product)
-        # cart(request.POST)
