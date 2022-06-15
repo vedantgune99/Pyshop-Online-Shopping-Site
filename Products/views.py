@@ -78,9 +78,31 @@ def cart(request):
 def addcart(request):
     if request.method == "POST":
         product_id = request.POST['id']
-        cart_item = Product.objects.get(id=product_id)
-        Cart(title=cart_item.title, image=cart_item.image,
-             price=cart_item.price, user=request.user).save()
+        product_quantity = request.POST['quantity']
+
+        product = Product.objects.get(id=product_id)
+        cartList = Cart.objects.filter(user=request.user)
+        CartQuantity = int(product_quantity)
+
+        if (Cart.objects.filter(cart_id=product_id).exists()):
+            # cartList.quantity += CartQuantity
+            mycart = Cart.objects.get(cart_id=product_id)
+            mycart.quantity = CartQuantity + 1
+            mycart.save()
+
+        else:
+            Cart(
+                cart_id=product_id,
+                title=product.title,
+                quantity=CartQuantity,
+                price=int(product.price),
+                user=request.user
+            ).save()
 
         messages.success(request, 'Cart item added successfully!')
         return redirect('products')
+
+
+def removeitem(request, item_id):
+    Cart.objects.filter(id=item_id).delete()
+    return redirect('cart')

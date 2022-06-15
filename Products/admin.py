@@ -5,7 +5,7 @@ from .models import Product, ItemType, Cart
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'quantity', 'price', 'item_type')
+    list_display = ('title', 'price', 'item_type')
 
 
 class ItemTypeAdmin(admin.ModelAdmin):

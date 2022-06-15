@@ -15,10 +15,20 @@
         <tbody>
             {% for product in CartProducts %}
             <tr>
-                <th scope="row">#{{ product.id }}</th>
+                <th scope="row">#{{ product.cart_id }}</th>
                 <td>{{ product.title }}</td>
                 <td>{{ product.price }}</td>
-                <td><input type="number" class="form-control w-25" maxlength="1" size="4"></td>
+                <td>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" value="{{ product.quantity }}" class="form-control w-25" maxlength="1"
+                                size="4">
+                        </div>
+                        <div class="col">
+                            <a href="/remove_item/{{ product.id }}">Remove</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

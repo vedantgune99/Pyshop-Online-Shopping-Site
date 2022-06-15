@@ -15,7 +15,6 @@ class Product(models.Model):
     desc = models.CharField(max_length=255)
     image = models.CharField(max_length=2048)
     price = models.FloatField()
-    quantity = models.IntegerField()
     item_type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -23,8 +22,9 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
+    cart_id = models.IntegerField()
     title = models.CharField(max_length=50)
-    image = models.CharField(max_length=2048)
+    quantity = models.IntegerField(default=1)
     price = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
