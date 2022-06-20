@@ -16,14 +16,13 @@ contact = False
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'base.html', {'products': products})
+    return render(request, 'home.html', {'products': products})
 
 
 def products(request):
     global productAdded
     products = Product.objects.all()
-    productAdded = True
-    return render(request, 'products.html', {'products': products, 'addedcart': productAdded})
+    return render(request, 'products.html', {'isauth': request.user.is_authenticated, 'isadded': productAdded, 'products': products, 'addedcart': productAdded})
 
 
 def details(request, product_id):
@@ -93,13 +92,13 @@ def signin_user(request):
         message = MIMEMultipart()
         message['from'] = f"Registration Successful!"
         message['to'] = email
-        message['subject'] = f"{request.user} Registered Successfully!"
+        message['subject'] = f"{username} Registered Successfully!"
         message.attach(MIMEText(
             (f"Name : { name }\n") +
             (f"Username : { username }\n") +
             (f"Address : { email }\n") +
-            (f"Phone No. : { phone }\n") +
-            (f"State : { password }\n")
+            (f"Phone No. : { phone }\n")
+            (f"Thank you {username} for creating an account on PyShop.\n You have been registered successfully!")
         ))
 
         with smtplib.SMTP(host="smtp.gmail.com", port=587) as smtp:
@@ -145,7 +144,6 @@ def addcart(request):
         CartQuantity = int(product_quantity)
 
         if (Cart.objects.filter(cart_id=product_id).exists()):
-            # cartList.quantity += CartQuantity
             mycart = Cart.objects.get(cart_id=product_id)
             mycart.quantity = CartQuantity + 1
             mycart.save()

@@ -45,7 +45,7 @@
         <button class="btn btn-outline-primary my-2 mr-2 my-sm-0" type="submit">Search</button>
 
 
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="dropdown btn-fill-dark">
           <button class="btn btn-sm btn-fill-dark text-light dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,7 +69,7 @@
       </div>
     </div>
     
-    {% if not user.is_authenticated %}
+    {% if not request.user.is_authenticated %}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#SignInModal">
       Sign In
@@ -85,22 +85,13 @@
 
 <!-- End NavBar -->
 
-
-{% if user.isAuthenticated %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Welcome, {{ request.user }}</strong> logged in successfully!
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{% endif %}
-
-
 <!-- Sign In Modal -->
 <div class="modal fade" id="SignInModal" tabindex="-1" aria-labelledby="SignInModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="SignInModal">Register User</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
       </div>
       <div class="modal-body">
         <form method="post" action="/signin/" name="SignInForm" class="row g-3">
@@ -151,7 +142,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="LogInModal">Log In</h5>
-          <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close">x</button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
         </div>
         <div class="modal-body">
           <form class="row g-3" action="/login/" name="LoginForm" method="post">

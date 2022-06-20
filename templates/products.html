@@ -4,12 +4,11 @@
 
 
 <div class="container">
-    
-    {% if addedcart %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Product added to cart successfully!
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    {% if isadded %}
+    <div class="container mt-4 alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Product added to cart successfully!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+        </div>
     {% endif %}
     
         <div class="row">

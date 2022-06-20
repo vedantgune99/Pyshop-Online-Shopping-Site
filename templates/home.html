@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+    
+    {% if request.user.is_authenticated %}
+    <div class="container mt-4 alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Welcome, {{ request.user }}</strong> you have logged in successfully!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+    </div>
+    {% endif %}
+
+{% endblock %}
