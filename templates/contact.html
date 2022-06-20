@@ -4,22 +4,32 @@
 
 <div class="container mt-5">
     <h5 align="center" class="card-title">CONTACT US</h5>
+
+    {% if contact %}
+    <h5 class="text-primary bold">Email Sent Successfully!</h5>
+    {% endif %}
+    
     <p align="center" class="card-text">We will reach you soon!</p>
     <div class="border rounded-lg my-4">
-    <form class="m-3">
+    <form class="m-3" method="POST">
+        {% csrf_token %}
         <div class="row">
         <div class="col mb-3">
             <label for="name" class="form-label">Your Name : </label>
-            <input type="text" class="form-control" id="name" placeholder="Name">
+            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+        </div>
+        <div class="col mb-3">
+            <label for="phone" class="form-label">Phone No. : </label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+91 9876543210">
         </div>
         <div class="col mb-3">
             <label for="email" class="form-label">Email : </label>
-            <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+            <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com">
         </div>
         </div>
         <div class="mb-3">
             <label for="query" class="form-label">Your Query : </label>
-            <textarea class="form-control" id="query" rows="4" col="12" placeholder="Leave your message..."></textarea>
+            <textarea class="form-control" id="query" name="query" rows="4" col="12" placeholder="Leave your message..."></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit Query</button>
     </form>

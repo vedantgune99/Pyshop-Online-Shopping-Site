@@ -2,8 +2,17 @@
 
 {% block 'content' %}
 
+
 <div class="container">
-    <div class="row">
+    
+    {% if addedcart %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Product added to cart successfully!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    
+        <div class="row">
         {% for product in products %}
         <div class="col">
             <div class="card mt-5 mx-4" style="width: 18rem;">
@@ -14,15 +23,15 @@
                         <h5 class="card-title">{{ product.title }}</h5>
                         <p class="card-text">{{ product.desc }}</p>
                         <br/>
-                        <strong>price :</strong>
-                        <p class="card-text">{{ product.price }}
+                        <strong>Price :</strong>
+                        <p class="card-text"> ₹ {{ product.price }}
                         <p>
                             <form method="POST" action="addcart/">
                                 {% csrf_token %}
                                 <input value={{ product.id }} class="invisible" type="number" name="id"/>
                                 <div class="row">
                                 <div class="col">
-                                    <label for="quantity" class="form-label">Quantity </label>
+                                    <label for="quantity" class="form-label"><strong>Quantity : </strong></label>
                                     <input value="1" class="form-control w-10" type="number" name="quantity" id="quantity"/>
                                 </div>   
                                 <div class="col">

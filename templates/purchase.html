@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block 'content' %}
+
+<br><br>
+<hr>
+<div class="container">
+    <h4 class="cart-title"><b>
+            Your Bill
+        </b></h4>
+
+
+    <div class="container my-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in CartProducts %}
+                <tr>
+                    <td>{{ product.title }}</td>
+                    <td>
+                        {{ product.quantity }}
+                    </td>
+                    <td>₹ {{ product.price }}</td>
+                </tr>
+                {% endfor %}
+
+                <tr>
+                    <td><b>Total Amount : </b></td>
+                    <td><b>{{ items }}</b></td>
+                    <td><b>₹ {{ price }}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<br><br><br>
+<hr>
+
+<div class="container mt-5 ">
+    <h4 class="cart-title"><b>
+            Payment Gateway :
+        </b></h4>
+    <br><br>
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="{% url 'placed' %}">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputName">Name: </label>
+                        <input type="text" class="form-control" name="name" id="inputName" placeholder="Your Name"
+                            required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail">Email: </label>
+                        <input type="email" class="form-control" name="email" id="inputEmail"
+                            placeholder="example@gmail.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address: </label>
+                    <input type="text" class="form-control" name="add1" id="inputAddress" placeholder="1234 Main St"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">Address 2 (Optional): </label>
+                    <input type="text" class="form-control" name="add2" id="inputAddress2"
+                        placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City: </label>
+                        <input type="text" class="form-control" name="city" placeholder="Your City" id="inputCity"
+                            required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">State: </label>
+                        <select name="state" id="inputState" class="form-control" required>
+                            <option selected>Maharashtra</option>
+                            <option>Rajasthan</option>
+                            <option>Uttar Pradesh</option>
+                            <option>Gujrat</option>
+                            <option>Goa</option>
+                            <option>Delhi</option>
+                            <option>Bihar</option>
+                            <option>Jammu & Kashmir</option>
+                            <option>Telangana</option>
+                            <option>West Bengal</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip: </label>
+                        <input type="text" class="form-control" name="zipcode" id="inputZip"
+                            placeholder="Postal Address" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                        <label class="form-check-label" for="gridCheck">
+                            Agree to terms and conditions
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Checkout Now</button>
+            </form>
+        </div>
+
+        <div class="col">
+            <div class="container">
+                <img src="https://img.freepik.com/free-vector/scan-pay-concept-illustration_114360-7285.jpg?w=2000"
+                    alt="Payment Image" class="h-100 w-100 img-fluid">
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
