@@ -97,7 +97,7 @@ def signin_user(request):
             (f"Name : { name }\n") +
             (f"Username : { username }\n") +
             (f"Address : { email }\n") +
-            (f"Phone No. : { phone }\n")
+            (f"Phone No. : { phone }\n") +
             (f"Thank you {username} for creating an account on PyShop.\n You have been registered successfully!")
         ))
 
@@ -136,8 +136,9 @@ def cart(request):
 def addcart(request):
     global productAdded
     if request.method == "POST":
-        product_id = request.POST['id']
-        product_quantity = request.POST['quantity']
+        product_id = request.POST.get('id')
+        product_quantity = request.POST.get('quantity')
+        print(product_id, product_quantity)
 
         product = Product.objects.get(id=product_id)
         cartList = Cart.objects.filter(user=request.user)
@@ -206,3 +207,7 @@ def placed(request):
             smtp.login(cred.email, cred.password)
             smtp.send_message(message)
     return render(request, 'placed.html')
+
+
+def success(request):
+    return render(request, 'success.html')

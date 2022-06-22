@@ -1,10 +1,299 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block 'content' %} <br /><br />
 
-{% block 'content' %}
-<br><br>
+<br /><br />
+<hr />
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1
+        class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900"
+      >
+        Your Cart
+      </h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        Once you place the order it is not reversible!
+      </p>
+    </div>
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+      <table class="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
+          <tr>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400 rounded-tl rounded-bl"
+            >
+              Product
+            </th>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400"
+            >
+              Quantity
+            </th>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400"
+            >
+              Catagory
+            </th>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400"
+            >
+              Price
+            </th>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400 rounded-tr rounded-br"
+            ></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in CartProducts %}
+          <tr>
+            <td class="px-4 py-3 border-b-2 border-gray-200">
+              {{ product.title }}
+            </td>
+            <td class="px-4 py-3 border-b-2 border-gray-200">
+              {{ product.quantity}}
+            </td>
+            <td class="px-4 py-3 border-b-2 border-gray-200">
+              {{ product.item_type }}
+            </td>
+            <td
+              class="px-4 py-3 border-b-2 border-gray-200 text-lg text-gray-900"
+            >
+              ₹ {{ product.price }}
+            </td>
+            <td class="px-4 py-3 w-10 border-b-2 border-gray-200 px-4 py-3">
+              <a
+                href="{% url 'removeitem' product.id %}"
+                class="px-4 py-3 text-red-600 dark:text-red-500 hover:underline"
+                >Remove</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3">
+              <b>Total </b>
+            </td>
+            <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3">
+              {{ items }}
+            </td>
+            <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3">-</td>
+            <td
+              class="border-t-2 border-b-2 border-gray-200 px-4 py-3 text-lg text-gray-900"
+            >
+              ₹{{ price }}
+            </td>
+            <td
+              class="border-b-2 border-gray-200 px-4 py-3 text-lg text-gray-900"
+            >
+              <a
+                href="{% url 'purchase' %}"
+                class="flex ml-auto text-white bg-blue-500 border-0 py-1 px-6 focus:outline-none hover:bg-blue-600 rounded"
+                >Checkout</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<br /><br /><br />
+<hr />
 
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1
+        class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900"
+      >
+        Contact Us
+      </h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
+        gentrify.
+      </p>
+    </div>
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="name" class="leading-7 text-sm text-gray-600"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="email" class="leading-7 text-sm text-gray-600"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="phone" class="leading-7 text-sm text-gray-600"
+              >Phone</label
+            >
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="email" class="leading-7 text-sm text-gray-600"
+              >City</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="email" class="leading-7 text-sm text-gray-600"
+              >State</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="email" class="leading-7 text-sm text-gray-600"
+              >ZipCode</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-full">
+          <div class="relative">
+            <label for="message" class="leading-7 text-sm text-gray-600"
+              >Address 1:
+            </label>
+            <input
+              id="message"
+              name="add1"
+              placeholder="House No, Road, Locality"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-2 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-full">
+          <div class="relative">
+            <label for="message" class="leading-7 text-sm text-gray-600"
+              >Address 2(Optional):
+            </label>
+            <input
+              id="message"
+              name="add2"
+              placeholder="State, City, Landmark"
+              class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-2 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <div class="p-2 w-full">
+          <a
+            href="{% url 'success' %}"
+            class="flex mx-auto text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
+          >
+            Buy Now
+          </a>
+        </div>
+        <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+          <a class="text-blue-500">example@email.com</a>
+          <p class="leading-normal my-5">AVCOE <br />Sangamner</p>
+          <span class="inline-flex">
+            <a class="text-gray-500">
+              <svg
+                fill="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                ></path>
+              </svg>
+            </a>
+            <a class="ml-4 text-gray-500">
+              <svg
+                fill="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+                ></path>
+              </svg>
+            </a>
+            <a class="ml-4 text-gray-500">
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"
+                ></path>
+              </svg>
+            </a>
+            <a class="ml-4 text-gray-500">
+              <svg
+                fill="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                ></path>
+              </svg>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<hr>
-    <h2 align="center" class="card-title"> Thank You For Shopping! </h2>
-    <h6 align="center">Order Placed Successfully! Email sent to your registered email address.</h6>
 {% endblock %}

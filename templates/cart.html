@@ -4,53 +4,60 @@
 
 
 
-{% if addedcart %}
+{% comment %} {% if addedcart %}
 <div class="container mt=4 alert alert-success alert-dismissible fade show" role="alert">
   <strong>Product added to cart successfully!
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
 </div>
-{% endif %}
+{% endif %} {% endcomment %}
 
 
-<div class="container my-4">
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Your Cart</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Once you place the order it is not reversible!</p>
+      </div>
+      <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+          <thead>
             <tr>
-                <th scope="col">Product Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400 rounded-tl rounded-bl">Product</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400">Quantity</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400">Catagory</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400">Price</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border-b-2 border-gray-400 rounded-tr rounded-br">  </th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             {% for product in CartProducts %}
             <tr>
-                <td>{{ product.title }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" value="{{ product.quantity }}" class="form-control w-25" maxlength="1"
-                                size="4">
-                        </div>
-                        <a href="/remove_item/{{ product.id }}" class="float-left px-4 btn btn-danger mx-4 w-40">Remove</a>
-                    </div>
+                <td class="px-4 py-3 border-b-2 border-gray-200">{{ product.title }}</td>
+                <td class="px-4 py-3 border-b-2 border-gray-200">{{ product.quantity}}</td>
+                <td class="px-4 py-3 border-b-2 border-gray-200">{{ product.item_type }}</td>
+                <td class="px-4 py-3 border-b-2 border-gray-200 text-lg text-gray-900">₹ {{ product.price }}</td>
+                <td class="px-4 py-3 w-10 border-b-2 border-gray-200 px-4 py-3">
+                    <a href="{% url 'removeitem' product.id %}" class="px-4 py-3 text-red-600 dark:text-red-500 hover:underline">Remove</a>
                 </td>
-                <td>₹ {{ product.price }}</td>
             </tr>
             {% endfor %}
+            <tr>
+              <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3"><b>Total </b></td>
+              <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3">{{ items }}</td>
+              <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3"> - </td>
+              <td class="border-t-2 border-b-2 border-gray-200 px-4 py-3 text-lg text-gray-900">₹{{ price }}</td>
+              <td class="border-b-2 border-gray-200 px-4 py-3 text-lg text-gray-900">
+                <a href="{% url 'purchase' %}" class="flex ml-auto text-white bg-blue-500 border-0 py-1 px-6 focus:outline-none hover:bg-blue-600 rounded">Checkout</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-            <tr>
-                <td><b>Total Amount : </b></td>
-                <td><b>{{ items }}</b></td>
-                <td><b>₹ {{ price }}</b></td>
-            </tr>
-            <tr>
-            <td></td>
-                <td>
-                    <a href="{% url 'purchase' %}"  class="w-100 btn btn-primary">Checkout Cart</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
 {% endblock %}
+
+
+

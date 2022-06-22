@@ -3,46 +3,70 @@
 {% block 'content' %}
 
 
-<div class="container">
     {% if isadded %}
-    <div class="container mt-4 alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Product added to cart successfully!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
-        </div>
-    {% endif %}
-    
-        <div class="row">
-        {% for product in products %}
-        <div class="col">
-            <div class="card mt-5 mx-4" style="width: 18rem;">
-                <a href="details/{{ product.id }}">
-                    <img src="{{ product.image }}" style="height:19rem; width:18rem;" class="card-img-top" alt="...">
-                </a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.title }}</h5>
-                        <p class="card-text">{{ product.desc }}</p>
-                        <br/>
-                        <strong>Price :</strong>
-                        <p class="card-text"> ₹ {{ product.price }}
-                        <p>
-                            <form method="POST" action="addcart/">
-                                {% csrf_token %}
-                                <input value={{ product.id }} class="invisible" type="number" name="id"/>
-                                <div class="row">
-                                <div class="col">
-                                    <label for="quantity" class="form-label"><strong>Quantity : </strong></label>
-                                    <input value="1" class="form-control w-10" type="number" name="quantity" id="quantity"/>
-                                </div>   
-                                <div class="col">
-                                    <button type="submit" class="btn btn-primary">Add To Cart</button>
-                                </div>    
-                            </div>
-                            </form>
-                    </div>
-                </div>
-        </div>
-        {% endfor %}
-    </div>
+    <div
+    class="py-3 px-5 mb-4 bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center justify-between"
+    role="alert"
+  >
+    <span
+      ><b>Product added to cart successfully!</b></span
+    >
+    <button
+      class="w-4"
+      type="button"
+      data-dismiss="alert"
+      aria-label="Close"
+      onclick="this.parentElement.remove();"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="{2}"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
 </div>
 
-{% endblock %}
+    {% endif %}
+    <div>
+        <section class="text-gray-600 body-font">
+            <div class="px-5 py-24 mx-auto">
+                <div class="flex flex-wrap mx-20 w-full">
+                    {% for product in products %}
+                    <div class="lg:w-1/4 md:w-1/2 p-2 w-full mb-10 mx-3 border border shadow-xl rounded-md border-gray-300">
+                        <a href="{% url 'details' product.id  %}" class="block relative h-50 w-100 rounded overflow-hidden">
+                            <img alt="ecommerce" class="w-full h-full block" src="{{product.image}}">
+                        </a>
+                        <div class="mt-4">
+                            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ product.item_type }}</h3>
+                            <h2 class="text-gray-900 title-font text-lg font-medium"><strong>{{ product.title }}</strong></h2>
+                            <p class="mt-1">${{ product.price }}</p>
+                            <br></br>
+                            <p class="mt-1">Quantity :</p>
+                                <form method="post" action="{% url 'addcart' %}">
+                                    {% csrf_token %}
+                                <input type="number" value="1" name="quantity" class="form-control block w-20 px-3 py-1.5 text-base font-normal text-gray-700 border border-solid border-gray-300 rounded"/>
+                                <input type="number" value="{{ product.id }}" name="id" class="invisible"/>
+                                <button type="submit" class="text-white bg-blue-500 py-2 px-2 mt-3 float-left focus:outline-none hover:bg-blue-600 rounded">Add to Cart</button>
+                            </form>  
+                            </div>
+                        </div>
+                        {% endfor %}
+            </div>
+        </div>
+        </section>
+    </div>
+
+        {% endblock %}
+        
+        
+        
